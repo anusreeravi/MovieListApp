@@ -5,6 +5,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
@@ -20,20 +21,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
 
-    //BASE URL for TMDB
+    //BASE URL for API
     private static String BASE_URL="https://movies-sample.herokuapp.com/api/";;
 
-    private static Retrofit.Builder retroBuilder = null;
+    public static Retrofit.Builder retroBuilder = null;
 
 
-    public static Retrofit getInstance() {
+    @Inject
+    public  RetrofitInstance() {
 
         retroBuilder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(getHeaderIntercepter());
-        return retroBuilder.build();
     }
 
 

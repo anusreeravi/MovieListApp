@@ -36,7 +36,6 @@ public class MovieServiceTest {
         // given
         testObserver.assertNoErrors();
         testObserver.assertComplete();
-
-
+        movieService.getImageProfile("https://image.tmdb.org/t/p/w370_and_h556_bestv2/bXrZ5iHBEjH7WMidbUDQ0U2xbmr.jpg").test();
     }
 }
