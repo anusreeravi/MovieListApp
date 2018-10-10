@@ -10,12 +10,11 @@ import okhttp3.ResponseBody;
 
 public class MovieService {
 
-    private RetrofitInstance retrofitInstance;
     private MovieApi movieApi;
 
     @Inject
-    public MovieService(){
-        movieApi = RetrofitInstance.getInstance().create(MovieApi.class);
+    public MovieService(RetrofitInstance retrofitInstance){
+        movieApi = retrofitInstance.retroBuilder.build().create(MovieApi.class);
     }
 
 
