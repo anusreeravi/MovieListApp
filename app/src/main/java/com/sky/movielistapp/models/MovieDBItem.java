@@ -25,6 +25,17 @@ public class MovieDBItem {
     @Expose
     private String poster;
 
+    public MovieDBItem(){
+
+    }
+    public MovieDBItem(Integer id,String title,String year,String genre,String poster)
+    {
+        this.id=id;
+        this.title=title;
+        this.genre=genre;
+        this.year=year;
+        this.poster=poster;
+    }
     public Integer getId() {
         return id;
     }

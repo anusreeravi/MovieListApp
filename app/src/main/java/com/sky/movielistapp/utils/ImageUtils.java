@@ -35,11 +35,15 @@ public class ImageUtils {
 
     }
 
-    public static Bitmap getImage(final String imgURL) throws IOException {
-        URL url = null;
-
-            url = new URL(imgURL);
-            Bitmap bm = BitmapFactory.decodeStream(url.openStream());
+    public static Bitmap getImage(final String imgURL) {
+        Bitmap bm=null;
+        try {
+            URL url = new URL(imgURL);
+            bm = BitmapFactory.decodeStream(url.openStream());
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
         return bm;
     }
 }

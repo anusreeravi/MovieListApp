@@ -13,25 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /*
    Database Manager class where values are populated and fetched from database
  */
-public class DBManager extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
-    // Database Name
-    private static final String DATABASE_NAME = "movie_db";
-    // tasks table name
-    private static final String TABLE_MOVIES = "movies_table";
-    // tasks Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_TITLE = "movie_title";
-    private static final String KEY_YEAR = "movie_year";
-    private static final String KEY_GENRE = "movie_genre";
-    private static final String KEY_POSTER = "movie_image";
+public class DBManager extends SQLiteOpenHelper implements DBConstants{
 
-    @Inject
     public DBManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -43,7 +30,8 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //    dbase = db;
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_MOVIES + " ( "
-                + KEY_ID + " INTEGER PRIMARY KEY ," + KEY_TITLE
+                + KEY_TABLE_ID + " INTEGER PRIMARY KEY ,"
+                + KEY_ID + " INTEGER ," + KEY_TITLE
                 + " TEXT, " + KEY_YEAR
                 + " TEXT, " + KEY_GENRE
                 + " TEXT," + KEY_POSTER
@@ -61,106 +49,12 @@ public class DBManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
-
-    /*
-      Adding details to DB
-     */
-    public void addMoviesToDB(List<MovieDBItem> movieList) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        try {
-            for (MovieDBItem details:movieList){
-                ContentValues values = new ContentValues();
-                values.put(KEY_ID, details.getId());
-                values.put(KEY_TITLE, details.getTitle());
-                values.put(KEY_YEAR, details.getYear());
-                values.put(KEY_GENRE, details.getGenre());
-                values.put(KEY_POSTER, details.getPoster());
-
-                // Inserting Row
-                db.insert(TABLE_MOVIES, null, values);
-            }
-            }
-         catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-    }
-    /*
-        Deleting details from DB
-       */
-    public void deleteMoviesFromDB() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        try {
-            db.delete(TABLE_MOVIES, null, null);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
+    public SQLiteDatabase getReadableDB(){
+        return getReadableDatabase();
     }
 
-    /*
-      Fetching data from DB
-     */
-    public List<MovieDBItem> getAllData() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        List<MovieDBItem> movieList = new ArrayList<>();
-
-        try {
-    // Select All Query
-            String selectQuery = "SELECT  * FROM " + TABLE_MOVIES;
-            Cursor cursor = db.query(TABLE_MOVIES,null, null,null,null,null,null);
-    // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    MovieDBItem item = new MovieDBItem();
-                    item.setId(cursor.getInt(0));
-                    item.setTitle(cursor.getString(1));
-                    item.setYear(cursor.getString(2));
-                    item.setGenre(cursor.getString(3));
-                    item.setPoster(cursor.getString(4));
-                    movieList.add(item);
-                } while (cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-        return movieList;
-    }
-    public List<MovieDBItem> searchMovies(String searchText) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        List<MovieDBItem> movieList = new ArrayList<>();
-
-        try {
-            // Select All Query
-            String selectQuery = "SELECT  * FROM " + TABLE_MOVIES;
-            String selection = KEY_TITLE + " LIKE '"+searchText+"%' OR "
-                    + KEY_GENRE + " LIKE '"+searchText+"%'";
-            Cursor cursor = db.query(TABLE_MOVIES,null, selection,null,null,null,null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    MovieDBItem item = new MovieDBItem();
-                    item.setId(cursor.getInt(0));
-                    item.setTitle(cursor.getString(1));
-                    item.setYear(cursor.getString(2));
-                    item.setGenre(cursor.getString(3));
-                    item.setPoster(cursor.getString(4));
-                    movieList.add(item);
-                } while (cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-        return movieList;
+    public SQLiteDatabase getWritableDB(){
+        return getWritableDatabase();
     }
 
 }

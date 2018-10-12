@@ -1,14 +1,17 @@
 package com.sky.movielistapp.movielist;
 
 
+import android.os.Environment;
 import android.util.Log;
 
 import com.sky.movielistapp.db.DBManager;
+import com.sky.movielistapp.db.DBWrapper;
 import com.sky.movielistapp.models.MovieDBItem;
 import com.sky.movielistapp.models.MovieListItem;
 import com.sky.movielistapp.sharedpref.SharedPref;
 import com.sky.movielistapp.webservices.MovieService;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -27,19 +30,18 @@ public class MovieListPresenterImpl implements MovieListContract.Presenter {
     public static long TEN_MINUTES = 10*60*1000;
     private static String LAST_ACCESS_TIME="last_access_time";
     private List<MovieDBItem> listMovies;
-    private DBManager dbManager;
     private MovieService movieService;
-    private long lastAccessTime=-1;
-
-    SharedPref sharedPref;
-    MovieListContract.View moviesView;
+    private long lastAccessTime=0;
+    private DBWrapper dbWrapper;
+    private SharedPref sharedPref;
+    private MovieListContract.View moviesView;
 
     @Inject
     public MovieListPresenterImpl(SharedPref sharedPref, MovieListContract.View view,
-                                  DBManager dbManager, MovieService movieService){
+                                  DBWrapper dbManager, MovieService movieService){
         this.sharedPref = sharedPref;
         this.moviesView = view;
-        this.dbManager = dbManager;
+        this.dbWrapper = dbManager;
         this.movieService = movieService;
     }
 
@@ -47,7 +49,8 @@ public class MovieListPresenterImpl implements MovieListContract.Presenter {
     public void onPageLoaded() {
         moviesView.showProgress();
         long currentTime = new Date().getTime();
-        if(lastAccessTime>0 && (currentTime-sharedPref.getValue(LAST_ACCESS_TIME)<TEN_MINUTES)) {
+        lastAccessTime = sharedPref.getValue(LAST_ACCESS_TIME);
+        if((currentTime-sharedPref.getValue(LAST_ACCESS_TIME)<TEN_MINUTES) && dbWrapper.getAllData()!=null && dbWrapper.getAllData().size()>0) {
             lastAccessTime = currentTime;
             sharedPref.putValue(LAST_ACCESS_TIME,lastAccessTime);
             getMoviesFromDB();
@@ -70,27 +73,25 @@ public class MovieListPresenterImpl implements MovieListContract.Presenter {
      * Fetching movie from API
      */
 
-    private void fetchMoviesInfo() {
-
-
-       movieService.getMovieList()
-                .subscribeOn(Schedulers.newThread())
+    public void fetchMoviesInfo() {
+       movieService.getMovieList().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MovieListItem>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
-
-
             @Override
             public void onNext(MovieListItem movieDetails) {
                 if(movieDetails!=null)
                 listMovies = movieDetails.getData();
                 //Saving data to DB
                 if(listMovies!=null && listMovies.size()>0) {
-                    dbManager.deleteMoviesFromDB();
-                    dbManager.addMoviesToDB(listMovies);
+                    dbWrapper.deleteMoviesFromDB();
+                    dbWrapper.addMoviesToDB(listMovies);
+                    String filePath = Environment.getExternalStorageDirectory().toString() + "/com/movielist";
+                    if(new File(filePath).exists())
+                        new File(filePath).delete();
                 }
                 moviesView.showMovies(listMovies);
                 moviesView.dismissProgress();
@@ -111,13 +112,13 @@ public class MovieListPresenterImpl implements MovieListContract.Presenter {
     }
 
     private void getMoviesFromDB() {
-        listMovies= dbManager.getAllData();
+        listMovies= dbWrapper.getAllData();
         moviesView.showMovies(listMovies);
         moviesView.dismissProgress();
     }
 
     private void searchMoviesInfo(String query) {
-        listMovies= dbManager.searchMovies(query);
+        listMovies= dbWrapper.searchMovies(query);
         moviesView.showMovies(listMovies);
         moviesView.dismissProgress();
     }

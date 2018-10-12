@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MovieListApp</string>
     <string name="movie_info">Movie List</string>
+    <string name="error_storage">Images cannot be saved.</string>
+    <string name="search">Search</string>
 
 </resources>

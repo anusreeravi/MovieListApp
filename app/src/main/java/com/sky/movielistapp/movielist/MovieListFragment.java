@@ -1,11 +1,14 @@
 package com.sky.movielistapp.movielist;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +17,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.sky.movielistapp.R;
 import com.sky.movielistapp.app.DaggerMovieAppComponent;
@@ -29,6 +31,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.AndroidInjection;
 
 /*
 Fragment class for viewing movie list
@@ -36,7 +39,6 @@ Fragment class for viewing movie list
 public class MovieListFragment extends Fragment implements MovieListContract.View {
     private final int GRID_PORTRAIT_COLUMN = 3;
     private final int GRID_LANDSCAPE_COLUMN = 5;
-
     private final String MOVIE_ID = "movie_id";
     private final String LOADING = "Loading...";
     private Unbinder unbinder;
