@@ -3,7 +3,7 @@ Application showing list of movies with search functionality
 
 #### Used libraries:
 
-
+    /*Support Libraries*/ 
     com.android.support:appcompat-v7:27.0   
     junit:junit:4.12  
     org.robolectric:robolectric:3.0  
@@ -34,7 +34,7 @@ Application showing list of movies with search functionality
     com.android.support.test.espresso:espresso-contrib:2.2.2
    
 #### Features
-1. Fetching movie data from API
-2. Save Data to Database
-3.Populating View from MVP presenter based on cache interval
-4.Search List Option with movie title or movie genre
+1. Fetching movie data from API  
+2. Save Data to Database  
+3.Populating View from MVP presenter based on cache interval  
+4.Search List Option with movie title or movie genre  
