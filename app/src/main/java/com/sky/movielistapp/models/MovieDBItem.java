@@ -1,12 +1,10 @@
 package com.sky.movielistapp.models;
 
-/**
- * Created by Anu on 09/10/2018.
- */
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+//Model class for Database and View
 public class MovieDBItem {
 
     @SerializedName("id")

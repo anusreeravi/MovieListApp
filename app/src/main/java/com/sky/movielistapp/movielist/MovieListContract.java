@@ -5,7 +5,7 @@ import com.sky.movielistapp.models.MovieDBItem;
 import java.util.List;
 
 /*
-Contract for view listing movies
+Contract for movie list
  */
 public interface MovieListContract {
 

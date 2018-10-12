@@ -12,6 +12,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/*
+ class providing data operations
+ */
 public class DBWrapper implements DBConstants{
 
 

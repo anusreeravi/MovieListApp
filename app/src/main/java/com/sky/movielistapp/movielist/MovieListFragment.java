@@ -1,14 +1,10 @@
 package com.sky.movielistapp.movielist;
 
-import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,10 +27,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
 
 /*
-Fragment class for viewing movie list
+Fragment class where movie list is populated
  */
 public class MovieListFragment extends Fragment implements MovieListContract.View {
     private final int GRID_PORTRAIT_COLUMN = 3;
