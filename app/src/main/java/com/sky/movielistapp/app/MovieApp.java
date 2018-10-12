@@ -2,8 +2,6 @@ package com.sky.movielistapp.app;
 
 import android.app.Application;
 
-import dagger.android.HasActivityInjector;
-
 
 /*
 Application class

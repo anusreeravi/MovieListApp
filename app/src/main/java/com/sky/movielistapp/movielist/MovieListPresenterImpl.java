@@ -4,7 +4,6 @@ package com.sky.movielistapp.movielist;
 import android.os.Environment;
 import android.util.Log;
 
-import com.sky.movielistapp.db.DBManager;
 import com.sky.movielistapp.db.DBWrapper;
 import com.sky.movielistapp.models.MovieDBItem;
 import com.sky.movielistapp.models.MovieListItem;
@@ -23,7 +22,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /*
-Presenter class for fetching movie list  and updating UI
+Presenter class for fetching movie list  and updating View
  */
 public class MovieListPresenterImpl implements MovieListContract.Presenter {
 
@@ -111,12 +110,14 @@ public class MovieListPresenterImpl implements MovieListContract.Presenter {
 
     }
 
+    //Fetching from DB
     private void getMoviesFromDB() {
         listMovies= dbWrapper.getAllData();
         moviesView.showMovies(listMovies);
         moviesView.dismissProgress();
     }
 
+    //Searching DB
     private void searchMoviesInfo(String query) {
         listMovies= dbWrapper.searchMovies(query);
         moviesView.showMovies(listMovies);

@@ -10,11 +10,9 @@ import android.widget.Toast;
 
 import com.sky.movielistapp.R;
 
-import dagger.android.AndroidInjection;
-
 
 /*
-Activity class where fragments are added for listing movies or viewing each movie
+Activity class where fragments with movie listing is added
  */
 public class MovieListActivity extends AppCompatActivity {
 
@@ -28,11 +26,13 @@ public class MovieListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_list);
-        checkPermission();
         MovieListFragment listFragment = new MovieListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, listFragment).disallowAddToBackStack().commit();
+        checkPermission();
 
     }
+
+    //Checking WRITE Permission for devices
     private void checkPermission(){
         boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -42,6 +42,7 @@ public class MovieListActivity extends AppCompatActivity {
                     1);
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

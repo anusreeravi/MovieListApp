@@ -18,29 +18,23 @@ import com.sky.movielistapp.movielist.MovieListFragment;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
-import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
+//Test UI class for Espresso Tests
 @RunWith(AndroidJUnit4.class)
 public class TestMovieListFragment
          {
     @Rule
     public ActivityTestRule<MovieListActivity> mActivityRule =
             new ActivityTestRule<>(MovieListActivity.class);
-
-
-
 
     @Test
     public void instantiateFragment() {
@@ -65,7 +59,7 @@ public class TestMovieListFragment
     @Test
     public void pageLoaded()
     {
-        launchActivityWithIntent();
+        //launchActivityWithIntent();
         onView(withId(R.id.searchView))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.movie_list_recyclerview))
@@ -82,41 +76,39 @@ public class TestMovieListFragment
 
     @Test
     public void testMovieList() {
-         onView(ViewMatchers.withId(R.id.movie_list_recyclerview)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.movie_list_recyclerview)).check(matches(isDisplayed()));
         onView(withId(R.id.movie_list_recyclerview))
                 .perform(RecyclerViewActions.actionOnHolderItem(containsItemTitle("Dun"), click()));
     }
 
-             @Test
-             public void testSearchList() {
-                 onView(withId(R.id.searchView)).perform(click());
+   /* @Test
+    public void testSearchList() {
+        onView(withId(R.id.searchView)).perform(click());
                  // Type the text in the search view and submit the query
-                 onView(withId(R.id.searchView))
+        onView(withId(R.id.searchView))
                          .check(matches(isDisplayed()));
-                 onView(withId(R.id.searchView)).perform(typeText("Welcome"));
-                 onView(ViewMatchers.withId(R.id.movie_list_recyclerview)).check(matches(isDisplayed()));
-                 onView(withId(R.id.movie_list_recyclerview))
-                         .perform(RecyclerViewActions.actionOnHolderItem(containsItemTitle("Welcome"), click()));
-             }
+        onView(withId(R.id.searchView)).perform(typeText("Welcome"));
+        onView(ViewMatchers.withId(R.id.movie_list_recyclerview)).check(matches(isDisplayed()));
+        onView(withId(R.id.movie_list_recyclerview)).perform(RecyclerViewActions.actionOnHolderItem(containsItemTitle("Welcome"), click()));
+    }*/
 
     private static Matcher<RecyclerView.ViewHolder> containsItemTitle(final String title) {
-                 Checks.checkNotNull(title);
-                 return new BoundedMatcher<RecyclerView.ViewHolder, MovieListAdapter.MovieViewHolder>(
-                         MovieListAdapter.MovieViewHolder.class) {
+        Checks.checkNotNull(title);
+        return new BoundedMatcher<RecyclerView.ViewHolder, MovieListAdapter.MovieViewHolder>(
+                MovieListAdapter.MovieViewHolder.class) {
 
-                     @Override
-                     protected boolean matchesSafely(MovieListAdapter.MovieViewHolder viewHolder) {
-                         TextView titleTextView = viewHolder.itemView.findViewById(R.id.title);
+            @Override
+            protected boolean matchesSafely(MovieListAdapter.MovieViewHolder viewHolder) {
+                TextView titleTextView = viewHolder.itemView.findViewById(R.id.title);
+                return ((titleTextView.getText().toString().contains(title))
+                        && (titleTextView.getVisibility() == View.VISIBLE));
+                }
 
-                         return ((titleTextView.getText().toString().contains(title))
-                                 && (titleTextView.getVisibility() == View.VISIBLE));
-                     }
-
-                     @Override
-                     public void describeTo(Description description) {
-                         description.appendText(title);
-                     }
-                 };
-             }
+                @Override
+                public void describeTo(Description description) {
+                description.appendText(title);
+                }
+                };
+        }
 
 }

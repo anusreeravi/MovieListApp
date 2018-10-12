@@ -1,14 +1,12 @@
 package com.sky.movielistapp.db;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by Anu on 10/10/2018.
+ * Module class for DB Dependency Injection
  */
 
 @Module

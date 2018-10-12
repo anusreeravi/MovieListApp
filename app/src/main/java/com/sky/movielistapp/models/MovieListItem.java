@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+//Model class for API
 public class MovieListItem {
 
         @SerializedName("data")

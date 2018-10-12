@@ -3,7 +3,6 @@ package com.sky.movielistapp.app;
 
 import android.content.Context;
 
-import com.sky.movielistapp.db.DBManager;
 import com.sky.movielistapp.db.DBWrapper;
 import com.sky.movielistapp.movielist.MovieListContract;
 import com.sky.movielistapp.movielist.MovieListPresenterImpl;
@@ -17,7 +16,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- *
+ *Module Class for Dependency Injection
  *
  */
 @Module

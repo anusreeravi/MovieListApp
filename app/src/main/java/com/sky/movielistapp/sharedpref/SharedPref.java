@@ -4,9 +4,7 @@ import android.content.SharedPreferences;
 
 import javax.inject.Inject;
 
-/**
- * Created by Anu on 10/10/2018.
- */
+
 
 public class SharedPref {
 

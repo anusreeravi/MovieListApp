@@ -3,6 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowDisablePreview">true</item>
+
         <item name="colorPrimary">@android:color/darker_gray</item>
         <item name="colorPrimaryDark">@android:color/tab_indicator_text</item>
         <item name="colorAccent">@color/colorPrimary</item>

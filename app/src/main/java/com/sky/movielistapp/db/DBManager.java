@@ -1,18 +1,9 @@
 package com.sky.movielistapp.db;
 
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.sky.movielistapp.models.MovieDBItem;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
 
 /*
    Database Manager class where values are populated and fetched from database

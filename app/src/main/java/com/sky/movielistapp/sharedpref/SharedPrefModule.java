@@ -6,9 +6,7 @@ import android.content.SharedPreferences;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by Anu on 10/10/2018.
- */
+
 
 @Module
 public class SharedPrefModule {
