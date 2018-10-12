@@ -2,6 +2,8 @@
     package="com.sky.movielistapp">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
@@ -14,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.MovieListActivity"
+            android:name=".movielist.MovieListActivity"
             android:label="@string/app_name"
             android:exported="true"
             android:launchMode="standard"

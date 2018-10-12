@@ -5,7 +5,6 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
@@ -27,7 +26,6 @@ public class RetrofitInstance {
     public static Retrofit.Builder retroBuilder = null;
 
 
-    @Inject
     public  RetrofitInstance() {
 
         retroBuilder = new Retrofit.Builder()

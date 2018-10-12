@@ -10,20 +10,21 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
         android:layout_alignParentTop="true"
-        android:background="@android:color/darker_gray"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+       >
 
 
         <android.support.v7.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:focusable="false"
+            app:defaultQueryHint="@string/search"
+            android:inputType="text"
+
+            android:background="@drawable/border_round"
             android:gravity="center"
-            android:iconifiedByDefault="false"
             />
 
 

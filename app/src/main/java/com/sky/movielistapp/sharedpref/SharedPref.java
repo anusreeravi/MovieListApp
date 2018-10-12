@@ -1,6 +1,5 @@
 package com.sky.movielistapp.sharedpref;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import javax.inject.Inject;
